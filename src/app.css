@@ -1,0 +1,430 @@
+/*
+ * Design tokens follow betterdiscord.app's system (neutral scale, Inter, 3-4px radii,
+ * flat buttons with focus rings, section-based page layout). The accent is Vencord pink.
+ */
+
+@font-face {
+    font-family: "Inter";
+    src: url("/fonts/Inter.var-subset.woff2") format("woff2");
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+:root,
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --bg1: #040405;
+    --bg2: #0c0d10;
+    --bg2-alt: #101116;
+    --bg3: #14151b;
+    --bg3-alt: #191a21;
+    --bg4: #20212b;
+
+    --border-subtle: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.2);
+
+    --accent: #c8566c;
+    --accent-hover: #ad4559;
+    --accent-faded: rgba(200, 86, 108, 0.4);
+    --accent-soft: rgba(200, 86, 108, 0.12);
+
+    --danger: #c13a3a;
+    --warning: #f0b232;
+    --success: #3ba55c;
+    --info: #5865f2;
+
+    --text-light: #f1f1f1;
+    --text-normal: #bfc4c9;
+    --text-muted: #95989d;
+    --text-link: #ec8fa2;
+
+    --shadow-elevated:
+        0 2px 2px #0000001a, 0 4px 4px #0000001a, 0 8px 8px #0000001a, 0 16px 16px #0000001a, 0 32px 32px #0000001a;
+    --shadow-card: 0 1px 4px #00000026, 0 2px 8px #00000026, 0 4px 16px #00000026;
+
+    --font-monospace:
+        ui-monospace, SFMono-Regular, "JetBrains Mono", "Fira Code", Consolas, "Liberation Mono", Menlo, monospace;
+
+    --nav-height: 80px;
+}
+
+/* Light variant of the same system (the original site has a theme toggle) */
+:root[data-theme="light"] {
+    color-scheme: light;
+
+    --bg1: #e6e8ec;
+    --bg2: #f7f8fa;
+    --bg2-alt: #eff1f4;
+    --bg3: #ffffff;
+    --bg3-alt: #f3f4f6;
+    --bg4: #dfe2e7;
+
+    --border-subtle: rgba(0, 0, 0, 0.06);
+    --border: rgba(0, 0, 0, 0.12);
+    --border-strong: rgba(0, 0, 0, 0.22);
+
+    --accent-soft: rgba(200, 86, 108, 0.1);
+
+    --text-light: #0c0d10;
+    --text-normal: #2e3338;
+    --text-muted: #5f6570;
+    --text-link: #b0405a;
+
+    --shadow-elevated: 0 2px 4px #0000000d, 0 8px 16px #0000000f, 0 24px 48px #00000014;
+    --shadow-card: 0 1px 3px #0000001a, 0 4px 12px #0000000d;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100dvh;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: Inter, system-ui, sans-serif;
+    line-height: 1.45;
+    word-break: break-word;
+    background-color: var(--bg2);
+    color: var(--text-normal);
+    -webkit-font-smoothing: antialiased;
+    scrollbar-width: thin;
+    scrollbar-color: var(--bg3-alt) transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-light);
+    line-height: 1.2;
+    margin: 0;
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+a {
+    color: var(--text-link);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+}
+
+::selection {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px var(--accent-faded) !important;
+    border-radius: 3px;
+}
+
+mark {
+    background: var(--accent-faded);
+    color: var(--text-light);
+    border-radius: 2px;
+}
+
+code,
+pre {
+    font-family: var(--font-monospace);
+}
+
+:not(pre) > code {
+    background: var(--bg4);
+    color: var(--text-light);
+    border-radius: 4px;
+    padding: 0.1em 0.35em;
+    font-size: 0.875em;
+    overflow-wrap: anywhere;
+}
+
+/* ---------- page sections (betterdiscord.app layout) ---------- */
+
+.page-section {
+    padding: 48px 0;
+}
+
+.page-section.has-background {
+    background-color: var(--bg2-alt);
+}
+
+.page-section-inner {
+    max-width: 1280px;
+    width: 100%;
+    padding: 0 128px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 950px) {
+    .page-section-inner {
+        padding: 0 24px;
+    }
+}
+
+.title {
+    color: var(--text-light);
+    font-size: 48px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.01em;
+}
+
+.title-description {
+    color: var(--text-muted);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.75;
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    .title {
+        font-size: 36px;
+    }
+}
+
+.section-heading {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 16px;
+}
+
+/* ---------- buttons ---------- */
+
+.btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: normal;
+    border-radius: 3px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-decoration: none !important;
+    transition:
+        0.15s ease background,
+        0.15s ease box-shadow,
+        0.15s ease color,
+        0.15s ease border;
+    cursor: pointer;
+    padding: 8px 12px;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: currentColor;
+}
+
+.btn-lg {
+    padding: 12px 24px;
+    font-size: 16px;
+    min-height: 48px;
+}
+
+.btn-primary {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--border-subtle);
+    color: var(--text-normal);
+}
+
+.btn-secondary:hover {
+    border-color: var(--border);
+    color: var(--text-light);
+}
+
+.btn-tertiary {
+    background: var(--bg4);
+    color: var(--text-light);
+}
+
+.btn-tertiary:hover {
+    background: var(--bg3-alt);
+}
+
+/* ---------- inputs ---------- */
+
+.text-input {
+    border-radius: 4px;
+    border: 2px solid var(--border);
+    background: var(--bg2);
+    color: var(--text-normal);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 12px;
+    transition: 0.25s ease;
+    height: 42px;
+    width: 100%;
+}
+
+.text-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.75;
+}
+
+.text-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+/* ---------- tags / chips ---------- */
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: var(--text-normal);
+    font-weight: 500;
+    padding: 2px 8px;
+    background: var(--bg2);
+    border-radius: 50px;
+    border: 2px solid var(--border);
+    white-space: nowrap;
+    transition: 0.15s ease;
+}
+
+/* ---------- panels ---------- */
+
+.panel {
+    background: var(--bg3);
+    border: 1px solid var(--bg4);
+    border-radius: 8px;
+}
+
+/* ---------- long-form text (markdown, legal pages) ---------- */
+
+.prose {
+    color: var(--text-normal);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.prose > :first-child {
+    margin-top: 0;
+}
+
+.prose > :last-child {
+    margin-bottom: 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+    margin: 1.6em 0 0.6em;
+    font-weight: 700;
+}
+
+.prose h1 {
+    font-size: 28px;
+}
+
+.prose h2 {
+    font-size: 22px;
+}
+
+.prose h3 {
+    font-size: 18px;
+}
+
+.prose h4 {
+    font-size: 16px;
+}
+
+.prose ul,
+.prose ol {
+    padding-left: 1.4em;
+    margin: 0 0 1em;
+}
+
+.prose li + li {
+    margin-top: 0.25em;
+}
+
+.prose pre {
+    background: var(--bg2);
+    border: 1px solid var(--bg4);
+    border-radius: 4px;
+    padding: 14px 16px;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-light);
+}
+
+.prose img,
+.prose video {
+    max-width: 100%;
+    border-radius: 4px;
+}
+
+.prose strong {
+    color: var(--text-light);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
